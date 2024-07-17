@@ -6,7 +6,8 @@ import { Instance, types, getRoot } from 'mobx-state-tree'
 // locals
 import { DrupalRestAuthInternetAccountConfigModel } from './configSchema'
 import { DrupalRestAuthLoginForm } from './DrupalRestAuthLoginForm'
-// import { getResponseError } from '../util'
+
+// utils copied from https://github.com/GMOD/jbrowse-components/blob/main/plugins/authentication/src/util.ts
 async function getError(response: Response) {
   try {
     return response.text()
@@ -55,8 +56,8 @@ const stateModelFactory = (
       /**
        * #getter
        */
-      get validateWithHEAD(): boolean {
-        return getConf(self, 'validateWithHEAD')
+      get drupalUri(): boolean {
+        return getConf(self, 'drupalUri')
       },
     }))
     .actions(self => ({
@@ -88,10 +89,11 @@ const stateModelFactory = (
        * #action
        */
       async validateToken(token: string, location: UriLocation) {
-        console.log('here!!!:)')
-        if (!self.validateWithHEAD) {
-          return token
+        if(!self.drupalUri) {
+          return false;
         }
+
+        console.log(self.drupalUri)
         const newInit = self.addAuthHeaderToInit({ method: 'HEAD' }, token)
         const response = await fetch(location.uri, newInit)
         if (!response.ok) {

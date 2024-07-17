@@ -13,18 +13,10 @@ const DrupalRestConfigSchema = ConfigurationSchema(
     /**
      * #slot
      */
-    tokenType: {
-      description: 'a custom name for a token to include in the header',
+    drupalUri: {
+      description: 'The base URL for the Drupal site we want to authenticate against.',
       type: 'string',
-      defaultValue: 'Basic',
-    },
-    /**
-     * #slot
-     */
-    validateWithHEAD: {
-      description: 'validate the token with a HEAD request before using it',
-      type: 'boolean',
-      defaultValue: true,
+      defaultValue: ''
     },
   },
   {

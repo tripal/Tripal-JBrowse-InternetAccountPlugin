@@ -12,7 +12,6 @@ export default class DrupalRestAuthModelPlugin extends Plugin {
   version = version
 
   install(pluginManager: PluginManager) {
-    console.log('here')
     pluginManager.addInternetAccountType(() => {
       return new InternetAccountType({
         name: 'DrupalRestAuthInternetAccount',
@@ -20,16 +19,5 @@ export default class DrupalRestAuthModelPlugin extends Plugin {
         stateModel: modelFactory(configSchema),
       })
     })
-  }
-
-  configure(pluginManager: PluginManager) {
-    if (isAbstractMenuManager(pluginManager.rootModel)) {
-      pluginManager.rootModel.appendToMenu('Add', {
-        label: 'Hello View',
-        onClick: (session: AbstractSessionModel) => {
-          session.addView('HelloView', {})
-        },
-      })
-    }
   }
 }
