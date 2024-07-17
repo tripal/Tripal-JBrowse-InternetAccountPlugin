@@ -1,4 +1,197 @@
 {
+  "assemblies": [
+    {
+      "name": "volvox",
+      "aliases": [
+        "vvx"
+      ],
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "volvox_refseq",
+        "metadata": {
+          "date": "2020-08-20"
+        },
+        "formatAbout": {
+          "hideUris": true,
+          "config": "jexl:{extraField:'important data'}"
+        },
+        "adapter": {
+          "type": "TwoBitAdapter",
+          "twoBitLocation": {
+            "uri": "test_data/volvox/volvox.2bit",
+            "locationType": "UriLocation"
+          }
+        }
+      },
+      "refNameAliases": {
+        "adapter": {
+          "type": "FromConfigAdapter",
+          "adapterId": "W6DyPGJ0UU",
+          "features": [
+            {
+              "refName": "ctgA",
+              "uniqueId": "alias1",
+              "aliases": [
+                "A",
+                "contigA"
+              ]
+            },
+            {
+              "refName": "ctgB",
+              "uniqueId": "alias2",
+              "aliases": [
+                "B",
+                "contigB"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "volvox_tripalauth",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "volvox_tripalauth-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "TwoBitAdapter",
+          "twoBitLocation": {
+            "uri": "test_data/volvox/volvox.2bit",
+            "locationType": "UriLocation",
+            "internetAccountId": "customTripalAuth"
+          }
+        }
+      }
+    }
+  ],
+  "connections": [],
+  "defaultSession": {
+    "name": "Integration test example",
+    "views": [
+      {
+        "id": "integration_test",
+        "type": "LinearGenomeView",
+        "offsetPx": 2000,
+        "bpPerPx": 0.05,
+        "displayedRegions": [
+          {
+            "refName": "ctgA",
+            "start": 0,
+            "end": 50001,
+            "assemblyName": "volvox"
+          }
+        ]
+      }
+    ],
+    "widgets": {
+      "hierarchicalTrackSelector": {
+        "id": "hierarchicalTrackSelector",
+        "type": "HierarchicalTrackSelectorWidget",
+        "filterText": "",
+        "view": "integration_test"
+      }
+    },
+    "activeWidgets": {
+      "hierarchicalTrackSelector": "hierarchicalTrackSelector"
+    }
+  },
+  "tracks": [
+    {
+      "type": "QuantitativeTrack",
+      "trackId": "tripalauth_bigwig",
+      "name": "TripalAuth BigWig",
+      "category": [
+        "Authentication"
+      ],
+      "assemblyNames": [
+        "volvox"
+      ],
+      "adapter": {
+        "type": "BigWigAdapter",
+        "bigWigLocation": {
+          "locationType": "UriLocation",
+          "uri": "test_data/volvox/volvox.bw",
+          "internetAccountId": "ActivatingCrops"
+        }
+      }
+    },
+    {
+      "type": "VariantTrack",
+      "trackId": "tripalauth_vcf",
+      "name": "TripalAuth VCF",
+      "assemblyNames": [
+        "volvox"
+      ],
+      "category": [
+        "Authentication"
+      ],
+      "adapter": {
+        "type": "VcfTabixAdapter",
+        "vcfGzLocation": {
+          "uri": "test_data/volvox/volvox.filtered.vcf.gz",
+          "locationType": "UriLocation",
+          "internetAccountId": "ActivatingCrops"
+        },
+        "index": {
+          "location": {
+            "uri": "test_data/volvox/volvox.filtered.vcf.gz.tbi",
+            "locationType": "UriLocation",
+            "internetAccountId": "ActivatingCrops"
+          }
+        }
+      }
+    },
+    {
+      "type": "QuantitativeTrack",
+      "trackId": "noauth_bigwig",
+      "name": "NoAuth BigWig",
+      "category": [
+        "Authentication"
+      ],
+      "assemblyNames": [
+        "volvox"
+      ],
+      "adapter": {
+        "type": "BigWigAdapter",
+        "bigWigLocation": {
+          "locationType": "UriLocation",
+          "uri": "test_data/volvox/volvox.bw"
+        }
+      }
+    },
+    {
+      "type": "VariantTrack",
+      "trackId": "noauth_vcf",
+      "name": "NoAuth VCF",
+      "assemblyNames": [
+        "volvox"
+      ],
+      "category": [
+        "Authentication"
+      ],
+      "adapter": {
+        "type": "VcfTabixAdapter",
+        "vcfGzLocation": {
+          "uri": "test_data/volvox/volvox.filtered.vcf.gz",
+          "locationType": "UriLocation"
+        },
+        "index": {
+          "location": {
+            "uri": "test_data/volvox/volvox.filtered.vcf.gz.tbi",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "internetAccounts": [
+    {
+      "type": "DrupalRestAuthModel",
+      "internetAccountId": "ActivatingCrops",
+      "name": "Activating Crops Tripal Authentication",
+      "description": "Requires login to the Activating Crops website"
+    }
+  ],
   "plugins": [
     {
       "name": "DrupalRestAuthModel",

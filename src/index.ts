@@ -3,21 +3,21 @@ import PluginManager from '@jbrowse/core/PluginManager'
 import ViewType from '@jbrowse/core/pluggableElementTypes/ViewType'
 import { AbstractSessionModel, isAbstractMenuManager } from '@jbrowse/core/util'
 import { version } from '../package.json'
-import {
-  ReactComponent as HelloViewReactComponent,
-  stateModel as helloViewStateModel,
-} from './HelloView'
+import { InternetAccountType } from '@jbrowse/core/pluggableElementTypes'
+import configSchema from './DrupalRestAuthModel/configSchema'
+import modelFactory from './DrupalRestAuthModel/model'
 
 export default class DrupalRestAuthModelPlugin extends Plugin {
   name = 'DrupalRestAuthModelPlugin'
   version = version
 
   install(pluginManager: PluginManager) {
-    pluginManager.addViewType(() => {
-      return new ViewType({
-        name: 'HelloView',
-        stateModel: helloViewStateModel,
-        ReactComponent: HelloViewReactComponent,
+    console.log('here')
+    pluginManager.addInternetAccountType(() => {
+      return new InternetAccountType({
+        name: 'DrupalRestAuthInternetAccount',
+        configSchema,
+        stateModel: modelFactory(configSchema),
       })
     })
   }
