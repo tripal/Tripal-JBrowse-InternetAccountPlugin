@@ -6,11 +6,15 @@ WORKDIR /
 
 RUN npm cache clean -f \
   && npm install -g @jbrowse/cli \
-  && jbrowse --version \
-  && npm install -g serve
+  && jbrowse --version
 
 COPY . /jbrowse2
 
 WORKDIR /jbrowse2
 
-CMD npx serve .
+RUN yarn
+
+EXPOSE 9000
+EXPOSE 8999
+
+CMD yarn startbrowse
