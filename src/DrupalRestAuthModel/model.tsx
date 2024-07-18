@@ -93,9 +93,10 @@ const stateModelFactory = (
           return false;
         }
 
-        console.log(self.drupalUri)
+        const checkLoginStatusUri = self.drupalUri + "user/login_status?_format=json"
+        console.log(checkLoginStatusUri)
         const newInit = self.addAuthHeaderToInit({ method: 'HEAD' }, token)
-        const response = await fetch(location.uri, newInit)
+        const response = await fetch(checkLoginStatusUri)
         if (!response.ok) {
           throw new Error(
             await getResponseError({
