@@ -11,7 +11,7 @@ const DrupalRestConfigSchema = ConfigurationSchema(
   'DrupalRestAuthInternetAccount',
   {
     /**
-     * #slot
+     * #slot The URI of the Drupal REST API
      */
     drupalUri: {
       description: 'The base URL for the Drupal site we want to authenticate against.',

@@ -74,6 +74,8 @@ const stateModelFactory = (
           DrupalRestAuthLoginForm,
           {
             internetAccountId: self.internetAccountId,
+            internetAccountName: self.name,
+            internetAccountDescription: self.description,
             handleClose: (token: string) => {
               if (token) {
                 resolve(token)
@@ -94,8 +96,6 @@ const stateModelFactory = (
         }
 
         const checkLoginStatusUri = self.drupalUri + "user/login_status?_format=json"
-        console.log(checkLoginStatusUri)
-        const newInit = self.addAuthHeaderToInit({ method: 'HEAD' }, token)
         const response = await fetch(checkLoginStatusUri)
         if (!response.ok) {
           throw new Error(
